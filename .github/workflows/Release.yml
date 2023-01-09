@@ -71,6 +71,7 @@ jobs:
           commit_message: Tun2SocksKit Release ${{ github.event.inputs.version }}!!!
           commit_user_name: Arror
           commit_user_email: hallo.maqiang@icloud.com
+          commit_author: Arror <hallo.maqiang@icloud.com>
           tagging_message: ${{ github.event.inputs.version }}
           file_pattern: 'Package.swift'
           
