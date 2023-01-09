@@ -9,9 +9,9 @@ let package = Package(
   ],
   targets: [
     .binaryTarget(
-      name: "ClashKit",
+      name: "Tun2SocksKit",
       url: "https://github.com/daemonomead/Tun2SocksKit/releases/download/1.0.0/Tun2SocksKit.xcframework.zip",
-      checksum: "63bf0f0acbcb6ca6bdbc7af73decb9218756fef8c61f95161bbe0c6434f994b1"
+      checksum: "d890593373114ecfaa342a81eca4ac7e1d17615bcc71fc213fb6fc098a1a286e"
     )
   ]
 )
