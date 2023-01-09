@@ -36,7 +36,7 @@ jobs:
           cd leaf
           make xcframework
           cd target
-          zip -ry Tun2SocksFramework.xcframework.zip Tun2SocksFramework.xcframework
+          zip -r Tun2SocksKit.xcframework.zip Tun2SocksKit.xcframework
           
       - name: Detect checksum
         run: |
