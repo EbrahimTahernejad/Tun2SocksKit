@@ -34,14 +34,13 @@ jobs:
       - name: Build xcframework
         run: |
           cd leaf
-          cd tun2socks
           make xcframework
           cd target
           zip -ry Tun2SocksFramework.xcframework.zip Tun2SocksFramework.xcframework
           
       - name: Detect checksum
         run: |
-          export TEMP=`shasum -a 256 leaf/tun2socks/target/Tun2SocksKit.xcframework.zip`
+          export TEMP=`shasum -a 256 leaf/target/Tun2SocksKit.xcframework.zip`
           export CHECKSUM=${TEMP:0:64}
           echo "FILE_CHECKSUM=${CHECKSUM}" >> $GITHUB_ENV
           unset CHECKSUM
@@ -80,4 +79,4 @@ jobs:
         with:
           draft: false
           tag_name: ${{ github.event.inputs.version }}
-          files: leaf/tun2socks/target/Tun2SocksKit.xcframework.zip
+          files: leaf/target/Tun2SocksKit.xcframework.zip
