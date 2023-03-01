@@ -12,29 +12,20 @@ jobs:
   release:
     runs-on: macOS-12
     steps:
-    
-      - name: Setup enviornment
-        run: |
-          rustup target install aarch64-apple-ios
-          rustup target install aarch64-apple-ios-sim
-          rustup target install x86_64-apple-ios
-          rustup target install aarch64-apple-darwin
-          rustup target install x86_64-apple-darwin
-          cargo install cargo-lipo
-
       - uses: actions/checkout@v3
-
       - uses: actions/checkout@v3
         with:
-          repository: ${{secrets.RESPOSITORY}}
-          token: ${{secrets.PAT}}
-          ref: 'apple'
-          path: 'leaf'
+          repository: 'heiher/hev-socks5-tunnel'
+          submodules: 'true'
+          path: 'temp'
           
       - name: Build xcframework
         run: |
-          cd leaf
-          make xcframework
+          cd temp
+          make clean
+          make PP="xcrun --sdk iphoneos --toolchain iphoneos clang" CC="xcrun --sdk iphoneos --toolchain iphoneos clang" CFLAGS="-arch arm64 -mios-version-min=16.0" LFLAGS="-arch arm64 -mios-version-min=16.0 -Wl,-Bsymbolic-functions" static
+          libtool -static ./bin/libhev-socks5-tunnel.a ./third-part/hev-task-system/bin/libhev-task-system.a ./third-part/lwip/bin/liblwip.a ./third-part/yaml/bin/libyaml.a -o libtun2socks.a
+          xcodebuild -create-xcframework -library ./libtun2socks.a -output target/Tun2SocksKit.xcframework
           cd target
           zip -r Tun2SocksKit.xcframework.zip Tun2SocksKit.xcframework
           
