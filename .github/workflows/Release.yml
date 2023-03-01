@@ -31,7 +31,7 @@ jobs:
           
       - name: Detect checksum
         run: |
-          export TEMP=`shasum -a 256 leaf/target/Tun2SocksKit.xcframework.zip`
+          export TEMP=`shasum -a 256 temp/target/Tun2SocksKit.xcframework.zip`
           export CHECKSUM=${TEMP:0:64}
           echo "FILE_CHECKSUM=${CHECKSUM}" >> $GITHUB_ENV
           unset CHECKSUM
@@ -71,4 +71,4 @@ jobs:
         with:
           draft: false
           tag_name: ${{ github.event.inputs.version }}
-          files: leaf/target/Tun2SocksKit.xcframework.zip
+          files: temp/target/Tun2SocksKit.xcframework.zip
