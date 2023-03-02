@@ -10,8 +10,8 @@ let package = Package(
   targets: [
     .binaryTarget(
       name: "Tun2SocksKit",
-      url: "https://github.com/daemonomead/Tun2SocksKit/releases/download/2.0.1/Tun2SocksKit.xcframework.zip",
-      checksum: "56735efb30a93f787b66b5472b713ba99ece9dcb7c6063cb1f978977e9bbf1e9"
+      url: "https://github.com/daemonomead/Tun2SocksKit/releases/download/2.0.2/Tun2SocksKit.xcframework.zip",
+      checksum: "e483fcc53c664cf9721ba6bbe2d5e2cad3a32f6225fb4d43084be739fa5d18e9"
     )
   ]
 )
