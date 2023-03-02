@@ -51,7 +51,7 @@ jobs:
           echo "  targets: [" >> Package.swift
           echo "    .binaryTarget(" >> Package.swift
           echo "      name: \"Tun2SocksKit\"," >> Package.swift
-          echo "      url: \"https://github.com/daemonomead/Tun2SocksKit/releases/download/${{ github.event.inputs.version }}/Tun2SocksKit.xcframework.zip\"," >> Package.swift
+          echo "      url: \"https://github.com/EbrahimTahernejad/Tun2SocksKit/releases/download/${{ github.event.inputs.version }}/Tun2SocksKit.xcframework.zip\"," >> Package.swift
           echo "      checksum: \"${{ env.FILE_CHECKSUM }}\"" >> Package.swift
           echo "    )" >> Package.swift
           echo "  ]" >> Package.swift
