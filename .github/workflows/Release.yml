@@ -70,9 +70,11 @@ jobs:
           echo "let package = Package(" >> Package.swift
           echo "  name: \"Tun2SocksKit\"," >> Package.swift
           echo "  products: [" >> Package.swift
+          echo "    .library(name: \"Tun2SocksKit\", targets: [\"Tun2SocksKit\"])," >> Package.swift
           echo "    .library(name: \"HevSocks5Tunnel\", targets: [\"HevSocks5Tunnel\"])" >> Package.swift
           echo "  ]," >> Package.swift
           echo "  targets: [" >> Package.swift
+          echo "    .target(name: \"Tun2SocksKit\", dependencies: [\"HevSocks5Tunnel\"])," >> Package.swift
           echo "    .binaryTarget(" >> Package.swift
           echo "      name: \"HevSocks5Tunnel\"," >> Package.swift
           echo "      url: \"https://github.com/daemooon/Tun2SocksKit/releases/download/${{ github.event.inputs.version }}/HevSocks5Tunnel.xcframework.zip\"," >> Package.swift
