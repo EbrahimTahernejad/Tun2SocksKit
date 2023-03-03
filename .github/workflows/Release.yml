@@ -46,7 +46,10 @@ jobs:
                      -headers ./include \
                      -output ./Tun2SocksKit.xcframework
           
-          cp ../module.modulemap Tun2SocksKit.xcframework/ios-arm64/Headers/module.modulemap
+          echo "module Tun2SocksKit {" > Tun2SocksKit.xcframework/ios-arm64/Headers/module.modulemap
+          echo "    header \"hev-socks5-tunnel.h\"" >> Tun2SocksKit.xcframework/ios-arm64/Headers/module.modulemap
+          echo "    export *" >> Tun2SocksKit.xcframework/ios-arm64/Headers/module.modulemap
+          echo "}" >> Tun2SocksKit.xcframework/ios-arm64/Headers/module.modulemap
 
           zip -r Tun2SocksKit.xcframework.zip Tun2SocksKit.xcframework
           
