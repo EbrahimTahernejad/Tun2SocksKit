@@ -25,7 +25,7 @@ jobs:
           make clean
           make PP="xcrun --sdk iphoneos --toolchain iphoneos clang" CC="xcrun --sdk iphoneos --toolchain iphoneos clang" CFLAGS="-arch arm64 -mios-version-min=16.0" LFLAGS="-arch arm64 -mios-version-min=16.0 -Wl,-Bsymbolic-functions" static
           libtool -static ./bin/libhev-socks5-tunnel.a ./third-part/hev-task-system/bin/libhev-task-system.a ./third-part/lwip/bin/liblwip.a ./third-part/yaml/bin/libyaml.a -o libtun2socks.a
-          cp temp/src/hev-main.h headers/hev-socks5-tunnel.h
+          cp /src/hev-main.h include/hev-socks5-tunnel.h
           xcodebuild -create-xcframework -library ./libtun2socks.a -headers ./include -output target/Tun2SocksKit.xcframework
           cd target
           zip -r Tun2SocksKit.xcframework.zip Tun2SocksKit.xcframework
