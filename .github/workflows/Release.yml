@@ -37,13 +37,22 @@ jobs:
                   third-part/yaml/bin/libyaml.a \
                   third-part/hev-task-system/bin/libhev-task-system.a
           
-          xcodebuild -create-xcframework -library ./libtun2socks.a -headers ./include -output target/Tun2SocksKit.xcframework
-          cd target
+          rm -f include/hev-socks5-tunnel.h
+          
+          cp src/hev-main.h include/hev-socks5-tunnel.h
+          
+          xcodebuild -create-xcframework \
+                     -library ./libtun2socks.a \
+                     -headers ./include \
+                     -output ./Tun2SocksKit.xcframework
+          
+          cp ../module.modulemap Tun2SocksKit.xcframework/ios-arm64/Headers/module.modulemap
+
           zip -r Tun2SocksKit.xcframework.zip Tun2SocksKit.xcframework
           
       - name: Detect checksum
         run: |
-          export TEMP=`shasum -a 256 temp/target/Tun2SocksKit.xcframework.zip`
+          export TEMP=`shasum -a 256 temp/Tun2SocksKit.xcframework.zip`
           export CHECKSUM=${TEMP:0:64}
           echo "FILE_CHECKSUM=${CHECKSUM}" >> $GITHUB_ENV
           unset CHECKSUM
@@ -83,4 +92,8 @@ jobs:
         with:
           draft: false
           tag_name: ${{ github.event.inputs.version }}
-          files: temp/target/Tun2SocksKit.xcframework.zip
+          files: temp/Tun2SocksKit.xcframework.zip
+
+
+
+
