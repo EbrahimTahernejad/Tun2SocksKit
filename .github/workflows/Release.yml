@@ -31,7 +31,7 @@ jobs:
                CFLAGS="-arch arm64 -mios-version-min=16.0" \
                LFLAGS="-arch arm64 -mios-version-min=16.0 -Wl,-Bsymbolic-functions" static
 
-          libtool -static -o libtun2socks.a \
+          libtool -static -o libhev-socks5-tunnel.a \
                   bin/libhev-socks5-tunnel.a \
                   third-part/lwip/bin/liblwip.a \
                   third-part/yaml/bin/libyaml.a \
@@ -42,20 +42,20 @@ jobs:
           cp src/hev-main.h include/hev-socks5-tunnel.h
           
           xcodebuild -create-xcframework \
-                     -library ./libtun2socks.a \
+                     -library ./hev-socks5-tunnel.a \
                      -headers ./include \
-                     -output ./Tun2SocksKit.xcframework
+                     -output ./HevSocks5Tunnel.xcframework
           
-          echo "module Tun2SocksKit {" > Tun2SocksKit.xcframework/ios-arm64/Headers/module.modulemap
-          echo "    header \"hev-socks5-tunnel.h\"" >> Tun2SocksKit.xcframework/ios-arm64/Headers/module.modulemap
-          echo "    export *" >> Tun2SocksKit.xcframework/ios-arm64/Headers/module.modulemap
-          echo "}" >> Tun2SocksKit.xcframework/ios-arm64/Headers/module.modulemap
+          echo "module HevSocks5Tunnel {" > HevSocks5Tunnel.xcframework/ios-arm64/Headers/module.modulemap
+          echo "    header \"hev-socks5-tunnel.h\"" >> HevSocks5Tunnel.xcframework/ios-arm64/Headers/module.modulemap
+          echo "    export *" >> HevSocks5Tunnel.xcframework/ios-arm64/Headers/module.modulemap
+          echo "}" >> HevSocks5Tunnel.xcframework/ios-arm64/Headers/module.modulemap
 
-          zip -r Tun2SocksKit.xcframework.zip Tun2SocksKit.xcframework
+          zip -r HevSocks5Tunnel.xcframework.zip HevSocks5Tunnel.xcframework
           
       - name: Detect checksum
         run: |
-          export TEMP=`shasum -a 256 temp/Tun2SocksKit.xcframework.zip`
+          export TEMP=`shasum -a 256 temp/HevSocks5Tunnel.xcframework.zip`
           export CHECKSUM=${TEMP:0:64}
           echo "FILE_CHECKSUM=${CHECKSUM}" >> $GITHUB_ENV
           unset CHECKSUM
@@ -70,12 +70,12 @@ jobs:
           echo "let package = Package(" >> Package.swift
           echo "  name: \"Tun2SocksKit\"," >> Package.swift
           echo "  products: [" >> Package.swift
-          echo "    .library(name: \"Tun2SocksKit\", targets: [\"Tun2SocksKit\"])" >> Package.swift
+          echo "    .library(name: \"HevSocks5Tunnel\", targets: [\"HevSocks5Tunnel\"])" >> Package.swift
           echo "  ]," >> Package.swift
           echo "  targets: [" >> Package.swift
           echo "    .binaryTarget(" >> Package.swift
-          echo "      name: \"Tun2SocksKit\"," >> Package.swift
-          echo "      url: \"https://github.com/daemonomead/Tun2SocksKit/releases/download/${{ github.event.inputs.version }}/Tun2SocksKit.xcframework.zip\"," >> Package.swift
+          echo "      name: \"HevSocks5Tunnel\"," >> Package.swift
+          echo "      url: \"https://github.com/daemonomead/Tun2SocksKit/releases/download/${{ github.event.inputs.version }}/HevSocks5Tunnel.xcframework.zip\"," >> Package.swift
           echo "      checksum: \"${{ env.FILE_CHECKSUM }}\"" >> Package.swift
           echo "    )" >> Package.swift
           echo "  ]" >> Package.swift
@@ -95,7 +95,7 @@ jobs:
         with:
           draft: false
           tag_name: ${{ github.event.inputs.version }}
-          files: temp/Tun2SocksKit.xcframework.zip
+          files: temp/HevSocks5Tunnel.xcframework.zip
 
 
 
