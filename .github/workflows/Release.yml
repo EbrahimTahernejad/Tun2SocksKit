@@ -69,6 +69,7 @@ jobs:
           echo "" >> Package.swift
           echo "let package = Package(" >> Package.swift
           echo "  name: \"Tun2SocksKit\"," >> Package.swift
+          echo "  platforms: [.iOS(.v12)]," >> Package.swift
           echo "  products: [" >> Package.swift
           echo "    .library(name: \"Tun2SocksKit\", targets: [\"Tun2SocksKit\"])," >> Package.swift
           echo "    .library(name: \"HevSocks5Tunnel\", targets: [\"HevSocks5Tunnel\"])" >> Package.swift
