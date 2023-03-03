@@ -42,7 +42,7 @@ jobs:
           cp src/hev-main.h include/hev-socks5-tunnel.h
           
           xcodebuild -create-xcframework \
-                     -library ./hev-socks5-tunnel.a \
+                     -library ./libhev-socks5-tunnel.a \
                      -headers ./include \
                      -output ./HevSocks5Tunnel.xcframework
           
