@@ -1,4 +1,0 @@
-module Tun2SocksKit {
-    header "hev-socks5-tunnel.h"
-    export *
-}
