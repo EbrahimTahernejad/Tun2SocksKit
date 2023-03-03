@@ -5,13 +5,13 @@ import PackageDescription
 let package = Package(
   name: "Tun2SocksKit",
   products: [
-    .library(name: "Tun2SocksKit", targets: ["Tun2SocksKit"])
+    .library(name: "HevSocks5Tunnel", targets: ["HevSocks5Tunnel"])
   ],
   targets: [
     .binaryTarget(
-      name: "Tun2SocksKit",
-      url: "https://github.com/daemonomead/Tun2SocksKit/releases/download/2.0.5/Tun2SocksKit.xcframework.zip",
-      checksum: "b5a6abe70b85453c61d0343f2a8ac8861fd0eb280222e6765fa23f32c599c6ae"
+      name: "HevSocks5Tunnel",
+      url: "https://github.com/daemooon/Tun2SocksKit/releases/download/2.0.6/HevSocks5Tunnel.xcframework.zip",
+      checksum: "b0f5fd383dddf386f84ae0d161f99a6e155c054d07d83fdf48a47954f60fd1ab"
     )
   ]
 )
