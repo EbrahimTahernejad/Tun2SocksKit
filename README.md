@@ -34,7 +34,7 @@ misc:
   limit-nofile: 65535
 ```
 
-
++ NOTE! You can replace `stderr` with a file path.
 
 
 
