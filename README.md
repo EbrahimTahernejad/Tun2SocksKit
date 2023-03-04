@@ -9,6 +9,7 @@ This repository is a compilation workflow for [heiher/hev-socks5-tunnel](https:/
 ```swift
 import Tun2SocksKit
 
+// To start:
 let fileDescriptor: Int = ...
 let localConfigFilePath: String = ...
 Socks5Tunnel.run(withFileDescriptor: fileDescriptor, configFilePath: localConfigFilePath)
