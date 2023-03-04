@@ -12,6 +12,9 @@ import Tun2SocksKit
 let fileDescriptor: Int = ...
 let localConfigFilePath: String = ...
 Socks5Tunnel.run(withFileDescriptor: fileDescriptor, configFilePath: localConfigFilePath)
+
+// To quit:
+Socks5Tunnel.quit()
 ```
 
 ## Config File Content
