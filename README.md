@@ -1,10 +1,20 @@
 # Tun2SocksKit
 
+Forked from: [daemooon/Tun2SocksKit](https://github.com/daemooon/Tun2SocksKit)
+
+This repository is a compilation workflow for [heiher/hev-socks5-tunnel](https://github.com/heiher/hev-socks5-tunnel)
+
+## Usage
+
 ```swift
 import Tun2SocksKit
 
-Socks5Tunnel.run(withFileDescriptor: 4, configFilePath: localConfigFileURL.path(percentEncoded: false))
+let fileDescriptor: Int = ...
+let localConfigFilePath: String = ...
+Socks5Tunnel.run(withFileDescriptor: fileDescriptor, configFilePath: localConfigFilePath)
 ```
+
+## Config File Content
 
 ```yml
 tunnel:
