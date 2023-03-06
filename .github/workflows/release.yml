@@ -40,17 +40,13 @@ jobs:
           rm -f include/hev-socks5-tunnel.h
           
           cp src/hev-main.h include/hev-socks5-tunnel.h
+          cp ../Templates/HevSocks5Tunnel.template include/HevSocks5Tunnel.modulemap
           
           xcodebuild -create-xcframework \
                      -library ./libhev-socks5-tunnel.a \
                      -headers ./include \
                      -output ./HevSocks5Tunnel.xcframework
-          
-          echo "module HevSocks5Tunnel {" > HevSocks5Tunnel.xcframework/ios-arm64/Headers/module.modulemap
-          echo "    header \"hev-socks5-tunnel.h\"" >> HevSocks5Tunnel.xcframework/ios-arm64/Headers/module.modulemap
-          echo "    export *" >> HevSocks5Tunnel.xcframework/ios-arm64/Headers/module.modulemap
-          echo "}" >> HevSocks5Tunnel.xcframework/ios-arm64/Headers/module.modulemap
-
+           
           zip -r HevSocks5Tunnel.xcframework.zip HevSocks5Tunnel.xcframework
           
       - name: Detect checksum
@@ -61,28 +57,17 @@ jobs:
           unset CHECKSUM
           unset TEMP
           
-      - name: Update package file
+      - uses: vafinvr/template-env-action@master
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          CHECKSUM: ${{ CHECKSUM }}
+        with:
+          filename: ./Templates/Package.template
+          
+      - name: Update Package.swift
         run: |
-          echo "// swift-tools-version: 5.7" > Package.swift
-          echo "" >> Package.swift
-          echo "import PackageDescription" >> Package.swift
-          echo "" >> Package.swift
-          echo "let package = Package(" >> Package.swift
-          echo "  name: \"Tun2SocksKit\"," >> Package.swift
-          echo "  platforms: [.iOS(.v12)]," >> Package.swift
-          echo "  products: [" >> Package.swift
-          echo "    .library(name: \"Tun2SocksKit\", targets: [\"Tun2SocksKit\"])," >> Package.swift
-          echo "    .library(name: \"HevSocks5Tunnel\", targets: [\"HevSocks5Tunnel\"])" >> Package.swift
-          echo "  ]," >> Package.swift
-          echo "  targets: [" >> Package.swift
-          echo "    .target(name: \"Tun2SocksKit\", dependencies: [\"HevSocks5Tunnel\"])," >> Package.swift
-          echo "    .binaryTarget(" >> Package.swift
-          echo "      name: \"HevSocks5Tunnel\"," >> Package.swift
-          echo "      url: \"https://github.com/daemooon/Tun2SocksKit/releases/download/${{ github.event.inputs.version }}/HevSocks5Tunnel.xcframework.zip\"," >> Package.swift
-          echo "      checksum: \"${{ env.FILE_CHECKSUM }}\"" >> Package.swift
-          echo "    )" >> Package.swift
-          echo "  ]" >> Package.swift
-          echo ")" >> Package.swift
+          rm -f Package.swift
+          cp ./Templates/Package.template Package.swift
           
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
