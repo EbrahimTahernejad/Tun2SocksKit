@@ -54,8 +54,8 @@ jobs:
           export TEMP=`shasum -a 256 temp/HevSocks5Tunnel.xcframework.zip`
           export CHECKSUM=${TEMP:0:64}
           cd Templates
-          sed -i "s/VERSION/${{ github.event.inputs.version }}/g" Package.template
-          sed -i "s/CHECKSUM/${CHECKSUM}/g" Package.template
+          sed -i "_bak" "s/VERSION/${{ github.event.inputs.version }}/g" Package.template
+          sed -i "_bak" "s/CHECKSUM/${CHECKSUM}/g" Package.template
           
       - name: Update Package.swift
         run: |
