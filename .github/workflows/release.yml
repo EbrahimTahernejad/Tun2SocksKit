@@ -49,20 +49,13 @@ jobs:
            
           zip -r HevSocks5Tunnel.xcframework.zip HevSocks5Tunnel.xcframework
           
-      - name: Detect checksum
+      - name: Rende Template
         run: |
           export TEMP=`shasum -a 256 temp/HevSocks5Tunnel.xcframework.zip`
           export CHECKSUM=${TEMP:0:64}
-          echo "FILE_CHECKSUM=${CHECKSUM}" >> $GITHUB_ENV
-          unset CHECKSUM
-          unset TEMP
-          
-      - uses: vafinvr/template-env-action@master
-        env:
-          VERSION: ${{ github.event.inputs.version }}
-          CHECKSUM: ${CHECKSUM}
-        with:
-          filename: ./Templates/Package.template
+          cd Templates
+          sed -i "s/VERSION/${{ github.event.inputs.version }}/g" Package.template
+          sed -i "s/CHECKSUM/${CHECKSUM}/g" Package.template
           
       - name: Update Package.swift
         run: |
