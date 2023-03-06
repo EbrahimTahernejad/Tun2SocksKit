@@ -60,7 +60,7 @@ jobs:
       - uses: vafinvr/template-env-action@master
         env:
           VERSION: ${{ github.event.inputs.version }}
-          CHECKSUM: ${{ CHECKSUM }}
+          CHECKSUM: ${CHECKSUM}
         with:
           filename: ./Templates/Package.template
           
