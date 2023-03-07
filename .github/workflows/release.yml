@@ -40,7 +40,7 @@ jobs:
           rm -f include/hev-socks5-tunnel.h
           
           cp src/hev-main.h include/hev-socks5-tunnel.h
-          cp ../Templates/HevSocks5Tunnel.template include/HevSocks5Tunnel.modulemap
+          cp ../Templates/HevSocks5Tunnel.template include/module.modulemap
           
           xcodebuild -create-xcframework \
                      -library ./libhev-socks5-tunnel.a \
