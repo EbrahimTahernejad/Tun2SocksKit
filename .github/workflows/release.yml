@@ -58,8 +58,8 @@ jobs:
           
           make PP=g++ \
                CC=gcc \
-               CFLAGS="-arch arm64 -mmacos-version=12.0" \
-               LFLAGS="-arch arm64 -mmacos-version=12.0 -Wl,-Bsymbolic-functions" static
+               CFLAGS="-arch arm64 -mmacosx-version-min=12.0" \
+               LFLAGS="-arch arm64 -mmacosx-version-min=12.0 -Wl,-Bsymbolic-functions" static
           
           mkdir macos_arm64
           
