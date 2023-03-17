@@ -26,6 +26,8 @@ jobs:
           
           make clean
           
+          echo ">>>>> architecture: arm64 for iphoneos"
+          
           make PP="xcrun --sdk iphoneos --toolchain iphoneos clang" \
                CC="xcrun --sdk iphoneos --toolchain iphoneos clang" \
                CFLAGS="-arch arm64 -mios-version-min=12.0" \
@@ -41,6 +43,8 @@ jobs:
                   
           make clean
           
+          echo ">>>>> architecture: arm64 for iphonesimulator"
+
           make PP="xcrun -sdk iphonesimulator clang" \
                CC="xcrun -sdk iphonesimulator clang" \
                CFLAGS="-arch arm64 -mios-simulator-version-min=12.0" \
@@ -55,6 +59,8 @@ jobs:
                   third-part/hev-task-system/bin/libhev-task-system.a
                   
           make clean
+          
+          echo ">>>>> architecture: x86_64 for iphonesimulator"
           
           make PP="xcrun -sdk iphonesimulator clang" \
                CC="xcrun -sdk iphonesimulator clang" \
@@ -72,6 +78,8 @@ jobs:
           make clean
           
           mkdir iphonesimulator_arm64_x86_64
+          
+          echo ">>>>> architecture: arm64_x86_64 for iphonesimulator"
           
           lipo -create -o ./iphonesimulator_arm64_x86_64/libhev-socks5-tunnel.a ./iphonesimulator_x86_64/libhev-socks5-tunnel.a ./iphonesimulator_arm64/libhev-socks5-tunnel.a
           
