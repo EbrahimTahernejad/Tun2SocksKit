@@ -66,14 +66,12 @@ jobs:
           mkdir include
           cp temp/src/hev-main.h include/hev-socks5-tunnel.h
           cp ./Templates/HevSocks5Tunnel.template include/module.modulemap
-          
           xcodebuild -create-xcframework \
-                     -library ./temp/iphoneos_arm64/libhev-socks5-tunnel.a \
+                     -library ./iphoneos_arm64/libhev-socks5-tunnel.a \
                      -headers ./include \
-                     -library ./fake/iphonesimulator_arm64_x86_64/libhev-socks5-tunnel.a \
+                     -library ./iphonesimulator_arm64_x86_64/libhev-socks5-tunnel.a \
                      -headers ./include \
                      -output ./HevSocks5Tunnel.xcframework
-           
           zip -r HevSocks5Tunnel.xcframework.zip HevSocks5Tunnel.xcframework
           
       - name: Rende Template
