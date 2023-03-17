@@ -61,6 +61,7 @@ jobs:
           
           xcodebuild -create-xcframework \
                      -library ./iphoneos/libhev-socks5-tunnel.a \
+                     -headers ./include \
                      -library ./iphonesimulator/libhev-socks5-tunnel.a \
                      -headers ./include \
                      -output ./HevSocks5Tunnel.xcframework
