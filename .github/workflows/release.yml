@@ -56,14 +56,14 @@ jobs:
                   
           make clean
           
-          make PP=g++ \
-               CC=gcc \
-               CFLAGS="-arch arm64 -mmacosx-version-min=12.0" \
-               LFLAGS="-arch arm64 -mmacosx-version-min=12.0 -Wl,-Bsymbolic-functions" static
+          make PP="xcrun -sdk iphonesimulator clang" \
+               CC="xcrun -sdk iphonesimulator clang" \
+               CFLAGS="-arch x86_64 -mios-simulator-version-min=12.0" \
+               LFLAGS="-arch x86_64 -mios-simulator-version-min=12.0 -Wl,-Bsymbolic-functions" static
           
-          mkdir macos_arm64
+          mkdir iphonesimulator_x86_64
           
-          libtool -static -o ./macos_arm64/libhev-socks5-tunnel.a \
+          libtool -static -o ./iphonesimulator_x86_64/libhev-socks5-tunnel.a \
                   bin/libhev-socks5-tunnel.a \
                   third-part/lwip/bin/liblwip.a \
                   third-part/yaml/bin/libyaml.a \
@@ -71,22 +71,9 @@ jobs:
                   
           make clean
           
-          make PP=g++ \
-               CC=gcc \
-               CFLAGS="-arch x86_64 -mmacosx-version-min=12.0" \
-               LFLAGS="-arch x86_64 -mmacosx-version-min=12.0 -Wl,-Bsymbolic-functions" static
+          mkdir iphonesimulator_arm64_x86_64
           
-          mkdir macos_x86_64
-          
-          libtool -static -o ./macos_x86_64/libhev-socks5-tunnel.a \
-                  bin/libhev-socks5-tunnel.a \
-                  third-part/lwip/bin/liblwip.a \
-                  third-part/yaml/bin/libyaml.a \
-                  third-part/hev-task-system/bin/libhev-task-system.a
-                  
-          mkdir macos_x86_64_arm64
-          
-          lipo -create -o macos_x86_64_arm64/libhev-socks5-tunnel.a ./macos_x86_64/libhev-socks5-tunnel.a ./macos_arm64/libhev-socks5-tunnel.a
+          lipo -create -o ./iphonesimulator_arm64_x86_64/libhev-socks5-tunnel.a ./iphonesimulator_x86_64/libhev-socks5-tunnel.a ./iphonesimulator_arm64/libhev-socks5-tunnel.a
           
           rm -f include/hev-socks5-tunnel.h
           
@@ -96,9 +83,7 @@ jobs:
           xcodebuild -create-xcframework \
                      -library ./iphoneos_arm64/libhev-socks5-tunnel.a \
                      -headers ./include \
-                     -library ./iphonesimulator_arm64/libhev-socks5-tunnel.a \
-                     -headers ./include \
-                     -library ./macos_x86_64_arm64/libhev-socks5-tunnel.a \
+                     -library ./iphonesimulator_arm64_x86_64/libhev-socks5-tunnel.a \
                      -headers ./include \
                      -output ./HevSocks5Tunnel.xcframework
            
