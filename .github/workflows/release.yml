@@ -75,7 +75,7 @@ jobs:
           cp ../Templates/HevSocks5Tunnel.template include/module.modulemap
           
           xcodebuild -create-xcframework \
-                     -library ./iphoneos_arm64/libhev-socks5-tunne.a \
+                     -library ./iphoneos_arm64/libhev-socks5-tunnel.a \
                      -headers ./include \
                      -library ./iphonesimulator_arm64/libhev-socks5-tunnel.a \
                      -headers ./include \
