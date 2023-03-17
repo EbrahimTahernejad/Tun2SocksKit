@@ -4,7 +4,7 @@
 
 ### 重要变更
 
-> 从 `2.1.16` 开始，支持iPhone模拟器（空实现）
+> 从 `2.1.16` 开始，支持iPhone模拟器，[hev-socks5-tunnel-iphonesimulator](https://github.com/daemooon/hev-socks5-tunnel-iphonesimulator)实现
 
 > ~~从 `2.1.10` 开始，支持arm64的模拟器架构~~
 
