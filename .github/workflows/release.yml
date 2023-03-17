@@ -76,7 +76,7 @@ jobs:
           
       - name: Rende Template
         run: |
-          export TEMP=`shasum -a 256 temp/HevSocks5Tunnel.xcframework.zip`
+          export TEMP=`shasum -a 256 ./HevSocks5Tunnel.xcframework.zip`
           export CHECKSUM=${TEMP:0:64}
           cd Templates
           sed -i "_bak" "s/VERSION/${{ github.event.inputs.version }}/g" Package.template
@@ -101,7 +101,7 @@ jobs:
         with:
           draft: false
           tag_name: ${{ github.event.inputs.version }}
-          files: temp/HevSocks5Tunnel.xcframework.zip
+          files: ./HevSocks5Tunnel.xcframework.zip
 
 
 
