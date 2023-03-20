@@ -23,6 +23,37 @@ jobs:
           repository: 'daemooon/hev-socks5-tunnel-iphonesimulator'
           path: 'fake'
           
+      - name: build macos arm64_x86_64
+        run: |
+          mkdir macos_arm64_x86_64
+          mkdir macos_arm64_x86_64/macos_arm64
+          mkdir macos_arm64_x86_64/macos_x86_64
+          cd temp
+          make clean
+          make PP=g++ \
+               CC=gcc \
+               CFLAGS="-arch x86_64 -mmacosx-version-min=12.0" \
+               LFLAGS="-arch x86_64 -mmacosx-version-min=12.0 -Wl,-Bsymbolic-functions" static
+          libtool -static -o ../macos_arm64_x86_64/macos_x86_64/libhev-socks5-tunnel.a \
+                  bin/libhev-socks5-tunnel.a \
+                  third-part/lwip/bin/liblwip.a \
+                  third-part/yaml/bin/libyaml.a \
+                  third-part/hev-task-system/bin/libhev-task-system.a
+          make clean
+          make clean
+          make PP=g++ \
+               CC=gcc \
+               CFLAGS="-arch arm64 -mmacosx-version-min=12.0" \
+               LFLAGS="-arch arm64 -mmacosx-version-min=12.0 -Wl,-Bsymbolic-functions" static
+          libtool -static -o ../macos_arm64_x86_64/macos_arm64/libhev-socks5-tunnel.a \
+                  bin/libhev-socks5-tunnel.a \
+                  third-part/lwip/bin/liblwip.a \
+                  third-part/yaml/bin/libyaml.a \
+                  third-part/hev-task-system/bin/libhev-task-system.a
+          cd ../macos_arm64_x86_64
+          lipo -create -o ./libhev-socks5-tunnel.a ./macos_arm64/libhev-socks5-tunnel.a ./macos_x86_64/libhev-socks5-tunnel.a
+
+          
       - name: build iphoneos arm64
         run: |
           mkdir iphoneos_arm64
@@ -70,6 +101,8 @@ jobs:
                      -library ./iphoneos_arm64/libhev-socks5-tunnel.a \
                      -headers ./include \
                      -library ./iphonesimulator_arm64_x86_64/libhev-socks5-tunnel.a \
+                     -headers ./include \
+                     -library ./macos_arm64_x86_64/libhev-socks5-tunnel.a \
                      -headers ./include \
                      -output ./HevSocks5Tunnel.xcframework
           zip -r HevSocks5Tunnel.xcframework.zip HevSocks5Tunnel.xcframework
