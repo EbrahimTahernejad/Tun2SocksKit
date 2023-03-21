@@ -4,7 +4,9 @@
 
 ### 重要变更
 
-> 从 `2.2.0` 开始，支持macOS（arm64、x86_64）
+> 从 `2.2.1` 开始，支持macOS（arm64、x86_64）
+
+> ~~从 `2.2.0` 开始，支持macOS（arm64、x86_64）~~
 
 > 从 `2.1.16` 开始，支持iPhone模拟器，[hev-socks5-tunnel-iphonesimulator](https://github.com/daemooon/hev-socks5-tunnel-iphonesimulator)实现
 
