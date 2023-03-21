@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
   name: "Tun2SocksKit",
-  platforms: [.iOS(.v12)],
+  platforms: [.iOS(.v12), .macOS(.v12)],
   products: [
     .library(
         name: "Tun2SocksKit",
@@ -22,8 +22,8 @@ let package = Package(
     ),
     .binaryTarget(
         name: "HevSocks5Tunnel",
-        url: "https://github.com/daemooon/Tun2SocksKit/releases/download/2.2.0/HevSocks5Tunnel.xcframework.zip",
-        checksum: "f5a0edb493fd689c871e109f47eb8959bbe02b4a7d94a827df97dd47e8a1bba6"
+        url: "https://github.com/daemooon/Tun2SocksKit/releases/download/2.2.1/HevSocks5Tunnel.xcframework.zip",
+        checksum: "6acded75849dd12f17a7a75298dc7941c638f3040480973fdaa38e28ad82ed69"
     )
   ]
 )
