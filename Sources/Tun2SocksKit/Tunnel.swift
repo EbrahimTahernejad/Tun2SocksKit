@@ -36,34 +36,9 @@ public enum Socks5Tunnel {
         return nil
     }
     
-    private static var interfaceName: String? {
-        guard let tunnelFileDescriptor = self.tunnelFileDescriptor else {
-            return nil
-        }
-        var buffer = [UInt8](repeating: 0, count: Int(IFNAMSIZ))
-        return buffer.withUnsafeMutableBufferPointer { mutableBufferPointer in
-            guard let baseAddress = mutableBufferPointer.baseAddress else {
-                return nil
-            }
-            var ifnameSize = socklen_t(IFNAMSIZ)
-            let result = getsockopt(
-                tunnelFileDescriptor,
-                2 /* SYSPROTO_CONTROL */,
-                2 /* UTUN_OPT_IFNAME */,
-                baseAddress,
-                &ifnameSize
-            )
-            if result == 0 {
-                return String(cString: baseAddress)
-            } else {
-                return nil
-            }
-        }
-    }
-    
     @discardableResult
-    public static func run(withConfig filePath: String) -> Int32 {
-        guard let fileDescriptor = self.tunnelFileDescriptor else {
+    public static func run(withConfig filePath: String, using fileDescriptor: Int32? = nil) -> Int32 {
+        guard let fileDescriptor = fileDescriptor ?? self.tunnelFileDescriptor else {
             fatalError("Get tunnel file descriptor failed.")
         }
         return hev_socks5_tunnel_main(filePath.cString(using: .utf8), fileDescriptor)
