@@ -8,13 +8,13 @@ let package = Package(
   products: [
     .library(
         name: "Tun2SocksKit",
-        targets: ["Tun2SocksKit"]
+        targets: ["Tun2SocksKit", "Tun2SocksKitC"]
     )
   ],
   targets: [
     .target(
         name: "Tun2SocksKit",
-        dependencies: ["Tun2SocksKitC", "HevSocks5Tunnel"]
+        dependencies: ["HevSocks5Tunnel"]
     ),
     .target(
         name: "Tun2SocksKitC",
