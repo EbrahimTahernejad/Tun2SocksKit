@@ -2,12 +2,12 @@ import Foundation
 import HevSocks5Tunnel
 
 public enum Socks5Tunnel {
-    @discardableResult
-    public static func run(withConfig filePath: String, using fileDescriptor: Int32? = nil) -> Int32 {
-        guard let fileDescriptor else {
-            fatalError("Get tunnel file descriptor failed.")
+    
+    public static func run(withConfig filePath: String, using fileDescriptor: Int32, completionHandler: (Int32) -> ()) {
+        DispatchQueue.global(qos: .userInitiated).async { [completionHandler] () in
+            let code = hev_socks5_tunnel_main(filePath.cString(using: .utf8), fileDescriptor)
+            completionHandler(code)
         }
-        return hev_socks5_tunnel_main(filePath.cString(using: .utf8), fileDescriptor)
     }
     
     public static func quit() {
