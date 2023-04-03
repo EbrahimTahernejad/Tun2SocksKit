@@ -1,4 +1,4 @@
 module Tun2SocksKitC {
-    header "Tun2SocksKitC.h"
+    umbrella header "Tun2SocksKitC.h"
     export *
 }
