@@ -4,7 +4,7 @@ import HevSocks5Tunnel
 
 public enum Socks5Tunnel {
 
-    public static var tunnelFileDescriptor: Int32? {
+    private static var tunnelFileDescriptor: Int32? {
         var ctlInfo = ctl_info()
         withUnsafeMutablePointer(to: &ctlInfo.ctl_name) {
             $0.withMemoryRebound(to: CChar.self, capacity: MemoryLayout.size(ofValue: $0.pointee)) {
@@ -36,7 +36,11 @@ public enum Socks5Tunnel {
         return nil
     }
     
-    public static func run(withConfig filePath: String, using fileDescriptor: Int32, completionHandler: @escaping (Int32) -> ()) {
+    public static func run(withConfig filePath: String, completionHandler: @escaping (Int32) -> ()) {
+        guard let fd = tunnelFileDescriptor else {
+            completionHandler(-1)
+            return
+        }
         DispatchQueue.global(qos: .userInitiated).async { [completionHandler] () in
             let code = hev_socks5_tunnel_main(filePath.cString(using: .utf8), fileDescriptor)
             completionHandler(code)
