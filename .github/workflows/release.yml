@@ -75,7 +75,7 @@ jobs:
           mkdir iphonesimulator_arm64_x86_64
           mkdir iphonesimulator_arm64_x86_64/iphonesimulator_arm64
           mkdir iphonesimulator_arm64_x86_64/iphonesimulator_x86_64
-          cd fake
+          cd temp
           make clean
           make PP="xcrun -sdk iphonesimulator clang" \
                CC="xcrun -sdk iphonesimulator clang" \
