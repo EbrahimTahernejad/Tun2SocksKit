@@ -28,7 +28,7 @@ jobs:
           mkdir macos_arm64_x86_64
           mkdir macos_arm64_x86_64/macos_arm64
           mkdir macos_arm64_x86_64/macos_x86_64
-          cd temp
+          cd fake
           make clean
           make PP=g++ \
                CC=gcc \
