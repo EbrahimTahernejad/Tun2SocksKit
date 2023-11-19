@@ -37,7 +37,7 @@ public enum Socks5Tunnel {
     }
     
     public static func run(withConfig filePath: String, completionHandler: @escaping (Int32) -> ()) {
-        guard let fd = tunnelFileDescriptor else {
+        guard let fileDescriptor = tunnelFileDescriptor else {
             completionHandler(-1)
             return
         }
@@ -48,7 +48,7 @@ public enum Socks5Tunnel {
     }
 
     public static func run(withConfig filePath: String) -> Int32 {
-        guard let fd = tunnelFileDescriptor else {
+        guard let fileDescriptor = tunnelFileDescriptor else {
             return -1
         }
         return hev_socks5_tunnel_main(filePath.cString(using: .utf8), fileDescriptor)
