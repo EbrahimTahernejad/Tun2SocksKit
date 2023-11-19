@@ -18,10 +18,10 @@ jobs:
           repository: 'heiher/hev-socks5-tunnel'
           submodules: 'true'
           path: 'temp'
-      # - uses: actions/checkout@v3
-      #   with:
-      #     repository: 'daemooon/hev-socks5-tunnel-iphonesimulator'
-      #     path: 'fake'
+      - uses: actions/checkout@v3
+        with:
+          repository: 'EbrahimTahernejad/hev-socks5-tunnel-iphonesimulator'
+          path: 'fake'
           
       - name: build macos arm64_x86_64
         run: |
@@ -70,27 +70,27 @@ jobs:
                   third-part/hev-task-system/bin/libhev-task-system.a
           make clean
           
-      # - name: build iphonesimulator arm64_x86_64
-      #   run: |
-      #     mkdir iphonesimulator_arm64_x86_64
-      #     mkdir iphonesimulator_arm64_x86_64/iphonesimulator_arm64
-      #     mkdir iphonesimulator_arm64_x86_64/iphonesimulator_x86_64
-      #     cd fake
-      #     make clean
-      #     make PP="xcrun -sdk iphonesimulator clang" \
-      #          CC="xcrun -sdk iphonesimulator clang" \
-      #          CFLAGS="-arch arm64 -mios-simulator-version-min=12.0" \
-      #          LFLAGS="-arch arm64 -mios-simulator-version-min=12.0 -Wl,-Bsymbolic-functions" static
-      #     cp bin/libhev-socks5-tunnel.a ../iphonesimulator_arm64_x86_64/iphonesimulator_arm64/libhev-socks5-tunnel.a
-      #     make clean
-      #     make PP="xcrun -sdk iphonesimulator clang" \
-      #          CC="xcrun -sdk iphonesimulator clang" \
-      #          CFLAGS="-arch x86_64 -mios-simulator-version-min=12.0" \
-      #          LFLAGS="-arch x86_64 -mios-simulator-version-min=12.0 -Wl,-Bsymbolic-functions" static
-      #     cp bin/libhev-socks5-tunnel.a ../iphonesimulator_arm64_x86_64/iphonesimulator_x86_64/libhev-socks5-tunnel.a
-      #     make clean
-      #     cd ../iphonesimulator_arm64_x86_64
-      #     lipo -create -o ./libhev-socks5-tunnel.a ./iphonesimulator_arm64/libhev-socks5-tunnel.a ./iphonesimulator_x86_64/libhev-socks5-tunnel.a
+      - name: build iphonesimulator arm64_x86_64
+        run: |
+          mkdir iphonesimulator_arm64_x86_64
+          mkdir iphonesimulator_arm64_x86_64/iphonesimulator_arm64
+          mkdir iphonesimulator_arm64_x86_64/iphonesimulator_x86_64
+          cd fake
+          make clean
+          make PP="xcrun -sdk iphonesimulator clang" \
+               CC="xcrun -sdk iphonesimulator clang" \
+               CFLAGS="-arch arm64 -mios-simulator-version-min=12.0" \
+               LFLAGS="-arch arm64 -mios-simulator-version-min=12.0 -Wl,-Bsymbolic-functions" static
+          cp bin/libhev-socks5-tunnel.a ../iphonesimulator_arm64_x86_64/iphonesimulator_arm64/libhev-socks5-tunnel.a
+          make clean
+          make PP="xcrun -sdk iphonesimulator clang" \
+               CC="xcrun -sdk iphonesimulator clang" \
+               CFLAGS="-arch x86_64 -mios-simulator-version-min=12.0" \
+               LFLAGS="-arch x86_64 -mios-simulator-version-min=12.0 -Wl,-Bsymbolic-functions" static
+          cp bin/libhev-socks5-tunnel.a ../iphonesimulator_arm64_x86_64/iphonesimulator_x86_64/libhev-socks5-tunnel.a
+          make clean
+          cd ../iphonesimulator_arm64_x86_64
+          lipo -create -o ./libhev-socks5-tunnel.a ./iphonesimulator_arm64/libhev-socks5-tunnel.a ./iphonesimulator_x86_64/libhev-socks5-tunnel.a
           
       - name: Build xcframework
         run: |
@@ -100,8 +100,8 @@ jobs:
           xcodebuild -create-xcframework \
                      -library ./iphoneos_arm64/libhev-socks5-tunnel.a \
                      -headers ./include \
-                     # -library ./iphonesimulator_arm64_x86_64/libhev-socks5-tunnel.a \
-                     # -headers ./include \
+                     -library ./iphonesimulator_arm64_x86_64/libhev-socks5-tunnel.a \
+                     -headers ./include \
                      -library ./macos_arm64_x86_64/libhev-socks5-tunnel.a \
                      -headers ./include \
                      -output ./HevSocks5Tunnel.xcframework
