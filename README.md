@@ -9,7 +9,11 @@ This repository is a wrapper and a build workflow for [hev-socks5-tunnel](https:
 ```swift
 import Tun2SocksKit
 
-Socks5Tunnel.run(withFileDescriptor: 4, configFilePath: localConfigFileURL.path(percentEncoded: false))
+let code = Socks5Tunnel.run(withConfig: localConfigFileURL.path(percentEncoded: false))
+// or
+Socks5Tunnel.run(withConfig: localConfigFileURL.path(percentEncoded: false)) { code in
+    // ...
+}
 ```
 
 ### Config
