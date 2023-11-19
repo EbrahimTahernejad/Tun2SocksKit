@@ -18,7 +18,7 @@ let package = Package(
   targets: [
     .target(
         name: "Tun2SocksKit",
-        dependencies: ["HevSocks5Tunnel"]
+        dependencies: ["HevSocks5Tunnel", "Tun2SocksKitC"]
     ),
     .target(
         name: "Tun2SocksKitC",
