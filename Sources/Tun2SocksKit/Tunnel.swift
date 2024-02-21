@@ -4,6 +4,21 @@ import HevSocks5Tunnel
 
 public enum Socks5Tunnel {
 
+    public enum Config {
+        case file(path: URL)
+        case string(content: String)
+    }
+
+    public struct Stats {
+        public struct Stat {
+            public let packets: Int
+            public let bytes: Int
+        }
+        
+        public let up: Stat
+        public let down: Stat
+    }
+
     private static var tunnelFileDescriptor: Int32? {
         var ctlInfo = ctl_info()
         withUnsafeMutablePointer(to: &ctlInfo.ctl_name) {
@@ -36,22 +51,35 @@ public enum Socks5Tunnel {
         return nil
     }
     
-    public static func run(withConfig filePath: String, completionHandler: @escaping (Int32) -> ()) {
-        guard let fileDescriptor = tunnelFileDescriptor else {
-            completionHandler(-1)
-            return
-        }
+    public static func run(withConfig config: Config, completionHandler: @escaping (Int32) -> ()) {
         DispatchQueue.global(qos: .userInitiated).async { [completionHandler] () in
-            let code = hev_socks5_tunnel_main(filePath.cString(using: .utf8), fileDescriptor)
+            let code: Int32 = Socks5Tunnel.run(withConfig: config)
             completionHandler(code)
         }
     }
 
-    public static func run(withConfig filePath: String) -> Int32 {
+    public static func run(withConfig config: Config) -> Int32 {
         guard let fileDescriptor = tunnelFileDescriptor else {
             return -1
         }
-        return hev_socks5_tunnel_main(filePath.cString(using: .utf8), fileDescriptor)
+        switch config {
+        case .file(let path):
+            return hev_socks5_tunnel_main(path.path.cString(using: .utf8), fileDescriptor)
+        case .string(let content):
+            return hev_socks5_tunnel_main_from_str(content.cString(using: .utf8), UInt(content.count), fileDescriptor)
+        }
+    }
+    
+    public static var stats: Stats {
+        var tPackets: Int = 0
+        var tBytes: Int = 0
+        var rPackets: Int = 0
+        var rBytes: Int = 0
+        hev_socks5_tunnel_stats(&tPackets, &tBytes, &rPackets, &rBytes)
+        return Stats(
+            up: Stats.Stat(packets: tPackets, bytes: tBytes),
+            down: Stats.Stat(packets: rPackets, bytes: rBytes)
+        )
     }
     
     public static func quit() {
