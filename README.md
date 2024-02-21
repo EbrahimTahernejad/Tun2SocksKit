@@ -6,11 +6,12 @@ This repository is a wrapper and a build workflow for [hev-socks5-tunnel](https:
 
 
 ## Usage
-### Running Tun2SocksKit
 You only need to import `Tun2SocksKit`
 ```swift
 import Tun2SocksKit
 ```
+
+### Running Tun2SocksKit
 
 Use a file URL to run it
 ```swift
