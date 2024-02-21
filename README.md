@@ -5,18 +5,45 @@
 This repository is a wrapper and a build workflow for [hev-socks5-tunnel](https://github.com/heiher/hev-socks5-tunnel)
 
 
-### Usage
+## Usage
+### Running Tun2SocksKit
+You only need to import `Tun2SocksKit`
 ```swift
 import Tun2SocksKit
+```
 
-let code = Socks5Tunnel.run(withConfig: localConfigFileURL.path(percentEncoded: false))
-// or
-Socks5Tunnel.run(withConfig: localConfigFileURL.path(percentEncoded: false)) { code in
-    // ...
+Use a file URL to run it
+```swift
+let code = Socks5Tunnel.run(withConfig: .file(path: localConfigFileURL))
+```
+
+Or the contents of the config file as a string
+```swift
+let code = Socks5Tunnel.run(withConfig: .string(content: stringConfigContent))
+```
+
+You can run it non-blocking as well
+```swift
+Socks5Tunnel.run(withConfig: .string(content: stringConfigContent)) { code in
+    // Do stuff with code
 }
 ```
 
-### Config
+### Stats
+To get stats you need to call
+```swift
+let stats = Socks5Tunnel.stats
+```
+
+Both packet count and bytes transmitted are provided
+```swift
+print(stats.up.packets)
+print(stats.up.bytes)
+print(stats.down.packets)
+print(stats.down.bytes)
+```
+
+## Config
 ```yml
 tunnel:
   mtu: 9000
