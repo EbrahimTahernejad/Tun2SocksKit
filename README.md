@@ -36,7 +36,7 @@ To get stats you need to call
 let stats = Socks5Tunnel.stats
 ```
 
-Both packet count and bytes transmitted are provided
+Both packet count and bytes transmitted/received are provided
 ```swift
 print(stats.up.packets)
 print(stats.up.bytes)
