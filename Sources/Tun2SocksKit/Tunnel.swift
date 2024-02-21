@@ -66,7 +66,7 @@ public enum Socks5Tunnel {
         case .file(let path):
             return hev_socks5_tunnel_main(path.path.cString(using: .utf8), fileDescriptor)
         case .string(let content):
-            return hev_socks5_tunnel_main_from_str(content.cString(using: .utf8), UInt(content.count), fileDescriptor)
+            return hev_socks5_tunnel_main_from_str(content.cString(using: .utf8), UInt32(content.count), fileDescriptor)
         }
     }
     
