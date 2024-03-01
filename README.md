@@ -6,7 +6,7 @@ This repository is a wrapper and a build workflow for [hev-socks5-tunnel](https:
 ## Original Developer ([arror](https://github.com/arror/))
 This code originally belonged to [arror](https://github.com/arror/). I'm just maintaining and updating it.
 
-If you appriciate this repo, give him a thanks.
+If you appreciate this repo, give him a thanks.
 
 ## Usage
 You only need to import `Tun2SocksKit`
