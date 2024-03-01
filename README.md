@@ -3,7 +3,7 @@
 
 This repository is a wrapper and a build workflow for [hev-socks5-tunnel](https://github.com/heiher/hev-socks5-tunnel)
 
-## Credits
+## Original Developer ([arror](https://github.com/arror/))
 This code originally belonged to [arror](https://github.com/arror/). I'm just maintaining and updating it.
 
 
