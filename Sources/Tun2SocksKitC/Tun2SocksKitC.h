@@ -3,6 +3,12 @@
 
 #include <stdint.h>
 
+typedef uint8_t  u_int8_t;
+typedef uint16_t u_int16_t;
+typedef uint32_t u_int32_t;
+typedef uint64_t u_int64_t;
+typedef unsigned char u_char;
+
 #define CTLIOCGINFO 0xc0644e03UL
 
 struct ctl_info {
