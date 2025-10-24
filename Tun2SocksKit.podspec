@@ -12,8 +12,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.swift_versions = ['5.7', '5.8', '5.9']
 
-  s.module_map = 'Sources/Tun2SocksKitC/Tun2SocksKitC.modulemap'
-
   s.default_subspec = 'Core'
 
   s.subspec 'Tun2SocksKitC' do |cs|
