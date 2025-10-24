@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
     cs.pod_target_xcconfig = {
       'DEFINES_MODULE' => 'YES',
       'CLANG_ENABLE_MODULES' => 'YES',
-      'MODULEMAP_FILE' => '$(PODS_TARGET_SRCROOT)/Sources/Tun2SocksKitC/Tun2SocksKitC.modulemap'
+      'MODULEMAP_FILE' => '$(PODS_TARGET_SRCROOT)/Sources/Tun2SocksKitC/module.modulemap'
     }
   end
 
