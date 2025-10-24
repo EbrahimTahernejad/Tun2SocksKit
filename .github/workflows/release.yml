@@ -125,6 +125,16 @@ jobs:
           rm -f Package.swift
           cp ./Templates/Package.template Package.swift
 
+      - name: Module update for Pod
+        run: |
+          cat > Sources/Tun2SocksKitC/Tun2SocksKitC.modulemap <<'EOF'
+          framework module Tun2SocksKitC {
+              umbrella header "Tun2SocksKitC.h"
+              export *
+              module * { export * }
+          }
+          EOF
+
       - name: Generate Podspec
         run: |
           cat > Tun2SocksKit.podspec <<'EOF'
