@@ -125,8 +125,11 @@ jobs:
           rm -f Package.swift
           cp ./Templates/Package.template Package.swift
 
-      - name: Module update for Pod
-        run: cp Sources/Tun2SocksKitC/Tun2SocksKitC.h Sources/Tun2SocksKit/Tun2SocksKitC.h
+      - name: Copy header as bridging header for pod
+        run: |
+          cp Sources/Tun2SocksKitC/Tun2SocksKitC.h Sources/Tun2SocksKit/Tun2SocksKitC.h
+          sed -i "_bak" '/^import Tun2SocksKitC$/d' Sources/Tun2SocksKit/Tunnel.swift
+          
 
       - name: Generate Podspec
         run: |
@@ -155,7 +158,6 @@ jobs:
             # === Subspec: Swift wrapper (Tun2SocksKit)
             s.subspec 'Core' do |ss|
               ss.source_files  = 'Sources/Tun2SocksKit/**/*.{swift,h}'
-              ss.dependency 'Tun2SocksKit/Tun2SocksKitC'
               ss.dependency 'Tun2SocksKit/HevSocks5Tunnel'
               ss.pod_target_xcconfig = {
                 'DEFINES_MODULE' => 'YES',
