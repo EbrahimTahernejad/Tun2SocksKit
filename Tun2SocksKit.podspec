@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'Tun2SocksKit'
   s.version          = '5.13.0'
-  s.summary          = 'Swift + C wrapper for hev-socks5-tunnel.'
+  s.summary          = 'Wrapper for hev-socks5-tunnel.'
   s.homepage         = 'https://github.com/EbrahimTahernejad/Tun2SocksKit'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Ebrahim Tahernejad' => 'ebrahimtahernejad@gmail.com' }
@@ -12,16 +12,27 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.swift_versions = ['5.7', '5.8', '5.9']
 
-  # Swift main target
-  s.source_files = 'Sources/Tun2SocksKit/**/*.swift'
-  s.public_header_files = 'Sources/Tun2SocksKitC/**/*.h'
+  s.default_subspec = 'Core'
 
-  # Internal C layer
-  s.subspec 'C' do |ss|
-    ss.source_files = 'Sources/Tun2SocksKitC/**/*.{c,h}'
-    ss.public_header_files = 'Sources/Tun2SocksKitC/**/*.h'
+  s.subspec 'Tun2SocksKitC' do |cs|
+    cs.module_name         = 'Tun2SocksKitC'
+    cs.source_files        = 'Sources/Tun2SocksKitC/**/*.{c,h}'
+    cs.public_header_files = 'Sources/Tun2SocksKitC/**/*.h'
+    cs.module_map          = 'Sources/Tun2SocksKitC/module.modulemap'
   end
 
-  # Vendored binary (HevSocks5Tunnel)
-  s.vendored_frameworks = 'HevSocks5Tunnel.xcframework'
+  s.subspec 'HevSocks5Tunnel' do |hs|
+    hs.vendored_frameworks = {
+      'HevSocks5Tunnel' => {
+        :http => "https://github.com/EbrahimTahernejad/Tun2SocksKit/releases/download/5.13.0/HevSocks5Tunnel.xcframework.zip"
+      }
+    }
+  end
+
+  # === Subspec: Swift wrapper (Tun2SocksKit)
+  s.subspec 'Core' do |ss|
+    ss.source_files  = 'Sources/Tun2SocksKit/**/*.swift'
+    ss.dependency 'Tun2SocksKit/Tun2SocksKitC'
+    ss.dependency 'Tun2SocksKit/HevSocks5Tunnel'
+  end
 end
