@@ -158,8 +158,10 @@ jobs:
             s.default_subspec = 'Core'
 
             s.subspec 'Tun2SocksKitC' do |cs|
-              cs.source_files        = 'Sources/Tun2SocksKitC/**/*.{c,h}'
-              cs.public_header_files = 'Sources/Tun2SocksKitC/**/*.h'
+              cs.source_files        = 'Sources/Tun2SocksKitC/Tun2SocksKitC.{c,h}'
+              cs.public_header_files = 'Sources/Tun2SocksKitC/Tun2SocksKitC.h'
+              cs.requires_arc        = true
+              cs.pod_target_xcconfig = { 'CLANG_ENABLE_MODULES' => 'YES', 'DEFINES_MODULE' => 'YES' }
             end
           
             s.subspec 'HevSocks5Tunnel' do |hs|
