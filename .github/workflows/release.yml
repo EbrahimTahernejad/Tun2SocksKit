@@ -127,11 +127,14 @@ jobs:
 
       - name: Module update for Pod
         run: |
-          cat > Sources/Tun2SocksKitC/Tun2SocksKitC.modulemap <<'EOF'
-          framework module Tun2SocksKitC {
-              umbrella header "Tun2SocksKitC.h"
+          touch Sources/Tun2SocksKitC/Tun2SocksKit.h && cat > Sources/Tun2SocksKitC/Tun2SocksKitC.modulemap <<'EOF'
+          framework module Tun2SocksKit {
+              umbrella header "Tun2SocksKit.h" // an empty umbrella header or just includes public Swift headers
               export *
-              module * { export * }
+              module Tun2SocksKitC {
+                  umbrella header "Tun2SocksKitC.h"
+                  export *
+              }
           }
           EOF
 
