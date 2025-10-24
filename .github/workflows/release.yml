@@ -128,15 +128,15 @@ jobs:
       - name: Module update for Pod
         run: |
           touch Sources/Tun2SocksKitC/Tun2SocksKit.h && cat > Sources/Tun2SocksKitC/Tun2SocksKitC.modulemap <<'EOF'
-          framework module Tun2SocksKit {
-              umbrella header "Tun2SocksKit.h" // an empty umbrella header or just includes public Swift headers
-              export *
-              module Tun2SocksKitC {
-                  umbrella header "Tun2SocksKitC.h"
-                  export *
-              }
+          module Tun2SocksKitC {
+            umbrella header "Tun2SocksKitC.h"
+            export *
+            module * { export * }
           }
           EOF
+
+      - name: Rename modulemap
+        run: mv Sources/Tun2SocksKitC/Tun2SocksKitC.modulemap Sources/Tun2SocksKitC/module.modulemap
 
       - name: Generate Podspec
         run: |
@@ -164,7 +164,7 @@ jobs:
               cs.pod_target_xcconfig = {
                 'DEFINES_MODULE' => 'YES',
                 'CLANG_ENABLE_MODULES' => 'YES',
-                'MODULEMAP_FILE' => '$(PODS_TARGET_SRCROOT)/Sources/Tun2SocksKitC/Tun2SocksKitC.modulemap'
+                'MODULEMAP_FILE' => '$(PODS_TARGET_SRCROOT)/Sources/Tun2SocksKitC/module.modulemap'
               }
             end
           
