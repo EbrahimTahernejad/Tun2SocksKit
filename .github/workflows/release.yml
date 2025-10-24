@@ -150,7 +150,6 @@ jobs:
             end
           
             s.subspec 'HevSocks5Tunnel' do |hs|
-              hs.source = { :http => "https://github.com/EbrahimTahernejad/Tun2SocksKit/releases/download/${{ github.event.inputs.version }}/HevSocks5Tunnel.xcframework.zip" }
               hs.vendored_frameworks = 'HevSocks5Tunnel.xcframework'
             end
           
