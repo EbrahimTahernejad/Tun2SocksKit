@@ -15,25 +15,18 @@ Pod::Spec.new do |s|
 
   s.default_subspec = 'Core'
 
-  s.subspec 'Tun2SocksKitC' do |cs|
-    cs.source_files        = 'Sources/Tun2SocksKitC/Tun2SocksKitC.{c,h}'
-    cs.public_header_files = 'Sources/Tun2SocksKitC/Tun2SocksKitC.h'
-    cs.requires_arc        = true
-    cs.pod_target_xcconfig = {
-      'DEFINES_MODULE' => 'YES',
-      'CLANG_ENABLE_MODULES' => 'YES',
-      'MODULEMAP_FILE' => '$(PODS_TARGET_SRCROOT)/Sources/Tun2SocksKitC/module.modulemap'
-    }
-  end
-
   s.subspec 'HevSocks5Tunnel' do |hs|
     hs.vendored_frameworks = 'HevSocks5Tunnel.xcframework'
   end
 
   # === Subspec: Swift wrapper (Tun2SocksKit)
   s.subspec 'Core' do |ss|
-    ss.source_files  = 'Sources/Tun2SocksKit/**/*.swift'
+    ss.source_files  = 'Sources/Tun2SocksKit/**/*.{swift,h}'
     ss.dependency 'Tun2SocksKit/Tun2SocksKitC'
     ss.dependency 'Tun2SocksKit/HevSocks5Tunnel'
+    ss.pod_target_xcconfig = {
+      'DEFINES_MODULE' => 'YES',
+      'SWIFT_OBJC_BRIDGING_HEADER' => '$(PODS_TARGET_SRCROOT)/Sources/Tun2SocksKit/Tun2SocksKitC.h'
+    }
   end
 end
