@@ -135,7 +135,7 @@ jobs:
             s.homepage         = 'https://github.com/EbrahimTahernejad/Tun2SocksKit'
             s.license          = { :type => 'MIT', :file => 'LICENSE' }
             s.author           = { 'Ebrahim Tahernejad' => 'ebrahimtahernejad@gmail.com' }
-            s.source           = { :git => 'https://github.com/EbrahimTahernejad/Tun2SocksKit.git', :tag => s.version.to_s }
+            s.source           = { :http => 'https://github.com/EbrahimTahernejad/Tun2SocksKit/releases/download/${{ github.event.inputs.version }}/CocoapodsSource.zip' }
 
             s.ios.deployment_target = '12.0'
             s.osx.deployment_target = '12.0'
@@ -162,6 +162,10 @@ jobs:
             end
           end
           EOF
+
+      - name: Archive Source
+        run: |
+          zip -r CocoapodsSource.zip .
           
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
@@ -178,7 +182,9 @@ jobs:
           draft: false
           tag_name: ${{ github.event.inputs.version }}
           body: 'Compiled from source tag: ${{ github.event.inputs.tag }}'
-          files: ./HevSocks5Tunnel.xcframework.zip
+          files: |
+            ./HevSocks5Tunnel.xcframework.zip
+            ./CocoapodsSource.zip
 
       - name: Validate Podspec
         run: pod spec lint Tun2SocksKit.podspec --allow-warnings --verbose
