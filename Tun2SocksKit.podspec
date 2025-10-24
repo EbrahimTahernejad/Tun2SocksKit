@@ -22,7 +22,6 @@ Pod::Spec.new do |s|
   # === Subspec: Swift wrapper (Tun2SocksKit)
   s.subspec 'Core' do |ss|
     ss.source_files  = 'Sources/Tun2SocksKit/**/*.{swift,h}'
-    ss.dependency 'Tun2SocksKit/Tun2SocksKitC'
     ss.dependency 'Tun2SocksKit/HevSocks5Tunnel'
     ss.pod_target_xcconfig = {
       'DEFINES_MODULE' => 'YES',
