@@ -20,7 +20,6 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'HevSocks5Tunnel' do |hs|
-    hs.source = { :http => "https://github.com/EbrahimTahernejad/Tun2SocksKit/releases/download/5.13.0/HevSocks5Tunnel.xcframework.zip" }
     hs.vendored_frameworks = 'HevSocks5Tunnel.xcframework'
   end
 
