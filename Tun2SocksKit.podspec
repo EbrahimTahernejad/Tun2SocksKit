@@ -15,18 +15,13 @@ Pod::Spec.new do |s|
   s.default_subspec = 'Core'
 
   s.subspec 'Tun2SocksKitC' do |cs|
-    cs.module_name         = 'Tun2SocksKitC'
     cs.source_files        = 'Sources/Tun2SocksKitC/**/*.{c,h}'
     cs.public_header_files = 'Sources/Tun2SocksKitC/**/*.h'
-    cs.module_map          = 'Sources/Tun2SocksKitC/module.modulemap'
   end
 
   s.subspec 'HevSocks5Tunnel' do |hs|
-    hs.vendored_frameworks = {
-      'HevSocks5Tunnel' => {
-        :http => "https://github.com/EbrahimTahernejad/Tun2SocksKit/releases/download/5.13.0/HevSocks5Tunnel.xcframework.zip"
-      }
-    }
+    hs.source = { :http => "https://github.com/EbrahimTahernejad/Tun2SocksKit/releases/download/5.13.0/HevSocks5Tunnel.xcframework.zip" }
+    hs.vendored_frameworks = 'HevSocks5Tunnel.xcframework'
   end
 
   # === Subspec: Swift wrapper (Tun2SocksKit)
