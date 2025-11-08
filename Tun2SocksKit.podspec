@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
   s.name             = 'Tun2SocksKit'
-  s.version          = '5.14.0'
+  s.version          = '5.14.1'
   s.summary          = 'Wrapper for hev-socks5-tunnel.'
   s.homepage         = 'https://github.com/EbrahimTahernejad/Tun2SocksKit'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Ebrahim Tahernejad' => 'ebrahimtahernejad@gmail.com' }
-  s.source           = { :http => 'https://github.com/EbrahimTahernejad/Tun2SocksKit/releases/download/5.14.0/CocoapodsSource.zip' }
+  s.source           = { :http => 'https://github.com/EbrahimTahernejad/Tun2SocksKit/releases/download/5.14.1/CocoapodsSource.zip' }
   s.static_framework = true
 
   s.ios.deployment_target = '12.0'
